@@ -1,0 +1,113 @@
+Description: Avoid node module glob-expand (use glob instead)
+Author: Jonas Smedegaard <dr@jones.dk>
+Last-Update: 2019-11-30
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/test/specs/cache.js
++++ b/test/specs/cache.js
+@@ -2,14 +2,7 @@
+ var path = require('path');
+ var write = require('write').sync;
+ var fileEntryCache = require('../../cache');
+-
+-function expand() {
+-  return require('glob-expand')
+-    .apply(null, arguments)
+-    .map(function (file) {
+-      return file.split('/').join(path.sep);
+-    });
+-}
++var glob = require("glob")
+ 
+ var fixturesDir = path.resolve(__dirname, '../fixtures');
+ var del = require('del').sync;
+@@ -99,7 +92,7 @@
+   it('should create a file entry cache using a file path', function () {
+     cache = fileEntryCache.createFromFile('../fixtures/.eslintcache');
+     var fs = require('fs');
+-    var files = expand(path.resolve(__dirname, '../fixtures/*.txt'));
++    var files = glob.sync(path.resolve(__dirname, '../fixtures/*.txt'));
+     var oFiles = cache.getUpdatedFiles(files);
+ 
+     expect(oFiles).to.deep.equal(files);
+@@ -118,7 +111,7 @@
+   it('should return the array of files passed the first time since there was no cache created', function () {
+     cache = fileEntryCache.create('testCache');
+ 
+-    var files = expand(path.resolve(__dirname, '../fixtures/*.txt'));
++    var files = glob.sync(path.resolve(__dirname, '../fixtures/*.txt'));
+     var oFiles = cache.getUpdatedFiles(files);
+ 
+     expect(oFiles).to.deep.equal(files);
+@@ -127,7 +120,7 @@
+   it('should return none, if no files were modified', function () {
+     cache = fileEntryCache.create('testCache');
+ 
+-    var files = expand(path.resolve(__dirname, '../fixtures/*.txt'));
++    var files = glob.sync(path.resolve(__dirname, '../fixtures/*.txt'));
+     var oFiles = cache.getUpdatedFiles(files);
+ 
+     expect(oFiles).to.deep.equal(files);
+@@ -143,7 +136,7 @@
+   it('should return only modified files the second time the method is called', function () {
+     cache = fileEntryCache.create('testCache');
+ 
+-    var files = expand(path.resolve(__dirname, '../fixtures/*.txt'));
++    var files = glob.sync(path.resolve(__dirname, '../fixtures/*.txt'));
+     var oFiles = cache.getUpdatedFiles(files);
+ 
+     expect(oFiles).to.deep.equal(files);
+@@ -165,7 +158,7 @@
+   it('should allow to delete an entry from the cache so the next time `getUpdatedFiles` is called the entry will be considered modified', function () {
+     cache = fileEntryCache.create('testCache');
+ 
+-    var files = expand(path.resolve(__dirname, '../fixtures/*.txt'));
++    var files = glob.sync(path.resolve(__dirname, '../fixtures/*.txt'));
+     var oFiles = cache.getUpdatedFiles(files);
+ 
+     expect(oFiles).to.deep.equal(files);
+@@ -208,7 +201,7 @@
+     it('should return fileDescriptor for all the passed files when using normalizeEntries', function () {
+       cache = fileEntryCache.create('testCache');
+ 
+-      var files = expand(path.resolve(__dirname, '../fixtures/*.txt'));
++      var files = glob.sync(path.resolve(__dirname, '../fixtures/*.txt'));
+       var oFiles = cache.normalizeEntries(files);
+ 
+       expect(oFiles.length).to.equal(4);
+@@ -220,7 +213,7 @@
+     it('should not remove non visited entries from the cache', function () {
+       cache = fileEntryCache.create('testCache');
+ 
+-      var files = expand(path.resolve(__dirname, '../fixtures/*.txt'));
++      var files = glob.sync(path.resolve(__dirname, '../fixtures/*.txt'));
+       cache.normalizeEntries(files);
+ 
+       cache.reconcile();
+@@ -247,7 +240,7 @@
+     it('should not persist files that do not exist', function () {
+       cache = fileEntryCache.create('testCache');
+ 
+-      var files = expand(path.resolve(__dirname, '../fixtures/*.txt'));
++      var files = glob.sync(path.resolve(__dirname, '../fixtures/*.txt'));
+       cache.normalizeEntries(files);
+ 
+       del(path.resolve(__dirname, '../fixtures/f2.txt'), {
+@@ -283,7 +276,7 @@
+     it('should return fileDescriptor for all the passed files', function () {
+       cache = fileEntryCache.create('testCache');
+ 
+-      var files = expand(path.resolve(__dirname, '../fixtures/*.txt'));
++      var files = glob.sync(path.resolve(__dirname, '../fixtures/*.txt'));
+       var oFiles = cache.normalizeEntries(files);
+ 
+       cache.reconcile();
+@@ -319,7 +312,7 @@
+     it('should allow persist custom data in the entries', function () {
+       cache = fileEntryCache.create('cache-1');
+ 
+-      var files = expand(path.resolve(__dirname, '../fixtures/*.txt'));
++      var files = glob.sync(path.resolve(__dirname, '../fixtures/*.txt'));
+       var entries = cache.normalizeEntries(files);
+ 
+       entries[1].meta.data = { foo: 'bar' };

@@ -1,0 +1,38 @@
+version=4
+# check: uscan --report
+# update: uscan && gbp import-orig ../node-file-entry-cache_X.Y.Z.orig.tar.gz
+# see also <https://wiki.debian.org/Javascript/GroupSourcesTutorial>
+
+opts=\
+filenamemangle=s/.*?(@ANY_VERSION@@ARCHIVE_EXT@)/@PACKAGE@-$1/,\
+dversionmangle=auto,repacksuffix=~dfsg \
+https://github.com/royriojas/file-entry-cache/tags \
+.*?@ANY_VERSION@@ARCHIVE_EXT@ group
+
+opts=\
+component=Xflat,\
+filenamemangle=s/.*?v?(@ANY_VERSION@@ARCHIVE_EXT@)/flat-cache-$1/,\
+dversionmangle=auto,repacksuffix=~dfsg \
+https://github.com/royriojas/flat-cache/tags \
+.*?v?@ANY_VERSION@@ARCHIVE_EXT@ group
+
+opts=\
+component=Xwrite,\
+filenamemangle=s/.*?v?(@ANY_VERSION@@ARCHIVE_EXT@)/write-$1/,\
+dversionmangle=auto,repacksuffix=~dfsg \
+https://github.com/jonschlinkert/write/tags \
+.*?v?@ANY_VERSION@@ARCHIVE_EXT@ group
+
+opts=\
+component=Xadd,\
+filenamemangle=s/.*?v?(@ANY_VERSION@@ARCHIVE_EXT@)/add-filename-increment-$1/,\
+dversionmangle=auto,repacksuffix=~dfsg \
+https://github.com/jonschlinkert/add-filename-increment/tags \
+.*?v?@ANY_VERSION@@ARCHIVE_EXT@ group
+
+opts=\
+component=Xstrip,\
+filenamemangle=s/.*?v?(@ANY_VERSION@@ARCHIVE_EXT@)/strip-filename-increment-$1/,\
+dversionmangle=auto,repacksuffix=~dfsg \
+https://github.com/jonschlinkert/strip-filename-increment/tags \
+.*?v?@ANY_VERSION@@ARCHIVE_EXT@ group

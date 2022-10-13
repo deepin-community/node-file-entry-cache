@@ -1,0 +1,17 @@
+Test-Command: node -e "
+ require('strip-filename-increment');
+ require('add-filename-increment');
+ require('write');"
+Depends:
+ node-write,
+Restrictions: superficial
+
+Test-Command: node -e "require('flat-cache');"
+Depends:
+ node-flat-cache,
+Restrictions: superficial
+
+Test-Command: node -e "require('file-entry-cache');"
+Depends:
+ node-file-entry-cache,
+Restrictions: superficial

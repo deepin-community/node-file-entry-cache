@@ -1,0 +1,45 @@
+Description: Avoid privacy breach in documentation
+Author: Jonas Smedegaard <dr@jones.dk>
+Last-Update: 2019-10-17
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/README.md
++++ b/README.md
+@@ -2,9 +2,6 @@
+ > Super simple cache for file metadata, useful for process that work o a given series of files
+ > and that only need to repeat the job on the changed ones since the previous run of the process — Edit
+ 
+-[![NPM Version](http://img.shields.io/npm/v/file-entry-cache.svg?style=flat)](https://npmjs.org/package/file-entry-cache)
+-[![Build Status](http://img.shields.io/travis/royriojas/file-entry-cache.svg?style=flat)](https://travis-ci.org/royriojas/file-entry-cache)
+-
+ ## install
+ 
+ ```bash
+--- a/Xadd/README.md
++++ b/Xadd/README.md
+@@ -1,4 +1,4 @@
+-# add-filename-increment [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W8YFZ425KND68) [![NPM version](https://img.shields.io/npm/v/add-filename-increment.svg?style=flat)](https://www.npmjs.com/package/add-filename-increment) [![NPM monthly downloads](https://img.shields.io/npm/dm/add-filename-increment.svg?style=flat)](https://npmjs.org/package/add-filename-increment) [![NPM total downloads](https://img.shields.io/npm/dt/add-filename-increment.svg?style=flat)](https://npmjs.org/package/add-filename-increment) [![Build Status](https://travis-ci.org/jonschlinkert/add-filename-increment.svg?branch=master)](https://travis-ci.org/jonschlinkert/add-filename-increment)
++# add-filename-increment
+ 
+ > When copying or moving files, it's common for operating systems to automatically add an increment or 'copy' to duplicate file names. This does that for Node.js applications, with automatic platform detection and support for Linux, MacOs, and Windows conventions.
+ 
+--- a/Xflat/README.md
++++ b/Xflat/README.md
+@@ -1,9 +1,6 @@
+ # flat-cache
+ > A stupidly simple key/value storage using files to persist the data
+ 
+-[![NPM Version](http://img.shields.io/npm/v/flat-cache.svg?style=flat)](https://npmjs.org/package/flat-cache)
+-[![Build Status](https://api.travis-ci.org/royriojas/flat-cache.svg?branch=master)](https://travis-ci.org/royriojas/flat-cache)
+-
+ ## install
+ 
+ ```bash
+--- a/Xwrite/README.md
++++ b/Xwrite/README.md
+@@ -1,4 +1,4 @@
+-# write [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=W8YFZ425KND68) [![NPM version](https://img.shields.io/npm/v/write.svg?style=flat)](https://www.npmjs.com/package/write) [![NPM monthly downloads](https://img.shields.io/npm/dm/write.svg?style=flat)](https://npmjs.org/package/write) [![NPM total downloads](https://img.shields.io/npm/dt/write.svg?style=flat)](https://npmjs.org/package/write) [![Build Status](https://travis-ci.org/jonschlinkert/write.svg?branch=master)](https://travis-ci.org/jonschlinkert/write)
++# write
+ 
+ > Write data to a file, replacing the file if it already exists and creating any intermediate directories if they don't already exist. Thin wrapper around node's native fs methods.
+ 

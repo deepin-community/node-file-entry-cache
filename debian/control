@@ -1,0 +1,75 @@
+Source: node-file-entry-cache
+Section: javascript
+Priority: optional
+Maintainer: Debian Javascript Maintainers <pkg-javascript-devel@lists.alioth.debian.org>
+Uploaders:
+ Jonas Smedegaard <dr@jones.dk>,
+Build-Depends:
+ debhelper-compat (= 13),
+ eslint <!nocheck>,
+ jq,
+ mocha <!nocheck>,
+ node-chai <!nocheck>,
+ node-del <!nocheck>,
+ node-flatted <!nocheck>,
+ node-glob <!nocheck>,
+ node-js-yaml <!nocheck>,
+ pandoc <!nodoc>,
+Standards-Version: 4.5.1
+Homepage: https://github.com/royriojas/file-entry-cache
+Vcs-Browser: https://salsa.debian.org/js-team/node-file-entry-cache
+Vcs-Git: https://salsa.debian.org/js-team/node-file-entry-cache.git
+Rules-Requires-Root: no
+
+Package: node-file-entry-cache
+Architecture: all
+Depends:
+ node-flat-cache,
+ nodejs,
+ ${misc:Depends},
+Description: Node.js library implementing a simple cache for file metadata
+ File-entry-cache is a super simple cache for file metadata,
+ useful for process that work on a given series of files
+ and that only need to repeat the job on the changed ones
+ since the previous run of the process.
+ .
+ The module grew from a need for a super simple and dumb in-memory cache
+ with optional disk persistence
+ for a script to beautify files with "esformatter"
+ only processing files that had changed since last run.
+ Such use case need "fileSize" and "modificationTime" of the files
+ tracked in a simple key/value storage.
+
+Package: node-flat-cache
+Architecture: all
+Depends:
+ node-flatted,
+ node-rimraf,
+ node-write,
+ nodejs,
+ ${misc:Depends},
+Description: Node.js library implementing a simple persistent key/value storage
+ Flat-cache is a stupidly simple key/value storage
+ using files to persist the data.
+ .
+ The module grew from a need for a super simple and dumb in-memory cache
+ with optional disk persistence
+ for a script to beautify files with "esformatter"
+ only processing files that had changed since last run.
+ Such use case need "fileSize" and "modificationTime" of the files
+ tracked in a simple key/value storage.
+
+Package: node-write
+Architecture: all
+Depends:
+ nodejs,
+ ${misc:Depends},
+Provides:
+ node-add-filename-increment,
+ node-strip-filename-increment,
+Multi-Arch: foreign
+Description: convenience wrapper for Node.js fs methods
+ Write data to a file,
+ replacing the file if it already exists
+ and creating any intermediate directories if they don't already exist.
+ Thin wrapper around node's native fs methods.

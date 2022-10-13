@@ -1,0 +1,3 @@
+Xadd/package.json Xadd/index.js /usr/share/nodejs/add-filename-increment
+Xstrip/package.json Xstrip/index.js /usr/share/nodejs/strip-filename-increment
+Xwrite/package.json Xwrite/index.js /usr/share/nodejs/write

@@ -1,0 +1,76 @@
+#!/usr/bin/make -f
+
+include /usr/share/dpkg/pkg-info.mk
+
+# generate documentation unless nodoc requested
+DOCS_md = $(wildcard README.md X*/README.md)
+DOCS = $(DOCS_md:.md=.html) $(DOCS_md:.md=.txt)
+CHANGELOGS_md = $(wildcard changelog.md X*/changelog.md X*/CHANGELOG.md)
+CHANGELOGS = $(CHANGELOGS_md:.md=.html) $(CHANGELOGS_md:.md=.txt)
+
+ESLINT = NO_COLOR=1 eslint
+MOCHA = NO_COLOR=1 mocha --no-color
+# normalize output with TAP where possible unless terse requested
+ifeq (,$(filter terse,$(DEB_BUILD_OPTIONS)))
+ESLINT += --format tap
+MOCHA += --reporter tap
+else
+ESLINT += --format unix
+MOCHA += --reporter dot
+endif
+
+# either resolve some files to include, or explicitly exclude
+# 1: include filter, 2: include list, 3: exclude filter
+_get_files_or_exclude = $(strip $(if $(filter $1%,$($2)),\
+ -- $(filter $1%,$($2)),\
+ -X$(or $3,$(patsubst %S,%,$2))))
+
+override_dh_auto_build: $(DOCS) $(CHANGELOGS)
+
+override_dh_auto_test:
+	$(ESLINT) --no-eslintrc --env es6,node *.js Xflat/**/*.js test/**/*.js
+	mkdir -p debian/node_modules
+	ln --symbolic ../../Xadd debian/node_modules/add-filename-increment
+	ln --symbolic ../../Xflat debian/node_modules/flat-cache
+	ln --symbolic ../../Xstrip debian/node_modules/strip-filename-increment
+	ln --symbolic ../../Xwrite debian/node_modules/write
+	$(MOCHA) Xstrip/test
+	NODE_PATH=debian/node_modules $(MOCHA) Xadd/test
+	NODE_PATH=debian/node_modules $(MOCHA) Xwrite/test
+	NODE_PATH=debian/node_modules $(MOCHA) Xflat/test/specs
+	NODE_PATH=debian/node_modules $(MOCHA) test/specs
+
+override_dh_installdocs:
+	dh_installdocs -pnode-file-entry-cache \
+		$(call _get_files_or_exclude,README,DOCS,README)
+	dh_installdocs -pnode-flat-cache \
+		$(call _get_files_or_exclude,Xflat/,DOCS,README)
+	dh_installdocs -pnode-write \
+		$(call _get_files_or_exclude,Xwrite/,DOCS,README)
+
+override_dh_installchangelogs:
+	dh_installchangelogs -pnode-file-entry-cache \
+		$(call _get_files_or_exclude,CHANGELOG,CHANGELOGS)
+	dh_installchangelogs -pnode-flat-cache \
+		$(call _get_files_or_exclude,Xflat/,CHANGELOGS)
+	dh_installchangelogs -pnode-write \
+		$(call _get_files_or_exclude,Xwrite/,CHANGELOGS)
+
+override_dh_gencontrol:
+	dh_gencontrol -pnode-file-entry-cache
+	dh_gencontrol -pnode-flat-cache \
+		-- -v$(shell jq --raw-output .version < Xflat/package.json)~$(DEB_VERSION)
+	dh_gencontrol -pnode-write \
+		-- -v$(shell jq --raw-output .version < Xwrite/package.json)~$(DEB_VERSION)
+
+override_dh_clean:
+	dh_clean -- $(DOCS) $(CHANGELOGS)
+
+%.html: %.md
+	pandoc --from gfm-raw_html --to html --standalone --output $@ $<
+
+%.txt: %.md
+	pandoc --from gfm-raw_html --to plain --output $@ $<
+
+%:
+	dh $@
