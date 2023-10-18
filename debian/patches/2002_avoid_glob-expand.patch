@@ -1,6 +1,7 @@
 Description: Avoid node module glob-expand (use glob instead)
 Author: Jonas Smedegaard <dr@jones.dk>
-Last-Update: 2019-11-30
+Forwarded: not-needed
+Last-Update: 2023-08-18
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/test/specs/cache.js

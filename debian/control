@@ -15,7 +15,7 @@ Build-Depends:
  node-glob <!nocheck>,
  node-js-yaml <!nocheck>,
  pandoc <!nodoc>,
-Standards-Version: 4.5.1
+Standards-Version: 4.6.2
 Homepage: https://github.com/royriojas/file-entry-cache
 Vcs-Browser: https://salsa.debian.org/js-team/node-file-entry-cache
 Vcs-Git: https://salsa.debian.org/js-team/node-file-entry-cache.git
@@ -62,7 +62,7 @@ Description: Node.js library implementing a simple persistent key/value storage
 Package: node-write
 Architecture: all
 Depends:
- nodejs,
+ nodejs:any,
  ${misc:Depends},
 Provides:
  node-add-filename-increment,

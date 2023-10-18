@@ -1,0 +1,18 @@
+Description: fix eslint/mocha
+ mocha/no-hooks-for-single-case doesn't exist with current eslint/mocha
+Author: Yadd <yadd@debian.org>
+Bug-Debian: https://bugs.debian.org/1005162
+Forwarded: not-needed
+Last-Update: 2022-02-08
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/test/specs/cache.js
++++ b/test/specs/cache.js
+@@ -304,7 +304,6 @@
+ 
+   describe('saving custom metadata', function () {
+     var cache2;
+-    // eslint-disable-next-line mocha/no-hooks-for-single-case
+     afterEach(function () {
+       cache2 && cache2.deleteCacheFile();
+     });
