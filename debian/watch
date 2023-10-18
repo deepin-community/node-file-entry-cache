@@ -10,6 +10,7 @@ https://github.com/royriojas/file-entry-cache/tags \
 .*?@ANY_VERSION@@ARCHIVE_EXT@ group
 
 opts=\
+ctype=nodejs,\
 component=Xflat,\
 filenamemangle=s/.*?v?(@ANY_VERSION@@ARCHIVE_EXT@)/flat-cache-$1/,\
 dversionmangle=auto,repacksuffix=~dfsg \
@@ -17,6 +18,7 @@ https://github.com/royriojas/flat-cache/tags \
 .*?v?@ANY_VERSION@@ARCHIVE_EXT@ group
 
 opts=\
+ctype=nodejs,\
 component=Xwrite,\
 filenamemangle=s/.*?v?(@ANY_VERSION@@ARCHIVE_EXT@)/write-$1/,\
 dversionmangle=auto,repacksuffix=~dfsg \
@@ -24,6 +26,7 @@ https://github.com/jonschlinkert/write/tags \
 .*?v?@ANY_VERSION@@ARCHIVE_EXT@ group
 
 opts=\
+ctype=nodejs,\
 component=Xadd,\
 filenamemangle=s/.*?v?(@ANY_VERSION@@ARCHIVE_EXT@)/add-filename-increment-$1/,\
 dversionmangle=auto,repacksuffix=~dfsg \
@@ -31,6 +34,7 @@ https://github.com/jonschlinkert/add-filename-increment/tags \
 .*?v?@ANY_VERSION@@ARCHIVE_EXT@ group
 
 opts=\
+ctype=nodejs,\
 component=Xstrip,\
 filenamemangle=s/.*?v?(@ANY_VERSION@@ARCHIVE_EXT@)/strip-filename-increment-$1/,\
 dversionmangle=auto,repacksuffix=~dfsg \

@@ -1,20 +1,20 @@
 Description: Avoid privacy breach in documentation
 Author: Jonas Smedegaard <dr@jones.dk>
-Last-Update: 2019-10-17
+Forwarded: not-needed
+Last-Update: 2023-08-18
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/README.md
 +++ b/README.md
-@@ -2,9 +2,6 @@
- > Super simple cache for file metadata, useful for process that work o a given series of files
+@@ -2,8 +2,6 @@
+ > Super simple cache for file metadata, useful for process that work on a given series of files
  > and that only need to repeat the job on the changed ones since the previous run of the process — Edit
  
 -[![NPM Version](http://img.shields.io/npm/v/file-entry-cache.svg?style=flat)](https://npmjs.org/package/file-entry-cache)
--[![Build Status](http://img.shields.io/travis/royriojas/file-entry-cache.svg?style=flat)](https://travis-ci.org/royriojas/file-entry-cache)
 -
+ 
  ## install
  
- ```bash
 --- a/Xadd/README.md
 +++ b/Xadd/README.md
 @@ -1,4 +1,4 @@

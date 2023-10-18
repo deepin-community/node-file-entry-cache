@@ -66,13 +66,15 @@ Files: README.md
  debian/node-write.install
  debian/patches/2001_privacy.patch
  debian/patches/2002_avoid_glob-expand.patch
+ debian/patches/2003_fix-eslint-mocha.patch
  debian/patches/series
  debian/rules
+ debian/salsa-ci.yml
  debian/source/format
+ debian/source/lintian-overrides
  debian/tests/control
  debian/upstream/metadata
  debian/watch
- package-lock.json
  perf.js
  test/runner.js
  test/specs/cache.js
@@ -84,6 +86,7 @@ Files: Xadd/package.json
  Xflat/package.json
  Xstrip/package.json
  Xwrite/package.json
+ package-lock.json
  package.json
 Copyright: NONE
 License: Expat
@@ -111,11 +114,5 @@ Files: LICENSE
  Xflat/LICENSE
 Copyright: 2015, Roy Riojas
 License: Expat
- FIXME
-
-Files: debian/source/lintian-overrides
-Copyright: debian/copyright GPL-3+
-  debian/copyright gpl-3+
-License: UNKNOWN
  FIXME
 
